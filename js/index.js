@@ -29,6 +29,7 @@ $("#home-up").click(function(){
     if(temp < 50)
         temp++;
     $("#home-temp").text(temp);
+    httpRequest("PUT", serverUrl + "/temp/home/" + temp);
 });
 
 $("#home-down").click(function(){
@@ -36,6 +37,8 @@ $("#home-down").click(function(){
     if(temp > 15)
         temp--;
     $("#home-temp").text(temp);
+    httpRequest("PUT", serverUrl + "/temp/home/" + temp);
+});
 });
 
 /*function update(){

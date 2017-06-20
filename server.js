@@ -10,8 +10,8 @@ function write() {
 
 let server = http.createServer();
 
-let waterTemp = 0;
-let homeTemp = 0;
+let waterTemp = 15;
+let homeTemp = 15;
 
 server.on('request', function(req,res) {
     let msg = "";
@@ -19,11 +19,11 @@ server.on('request', function(req,res) {
     if(req.method === "PUT"){
         if(req.url.indexOf("/temp/water/") !== -1){
             waterTemp = parseInt(req.url.substr(12, req.url.length));
-            //console.log(waterTemp);
+            console.log("Water: " + waterTemp.toString());
         }
         if(req.url.indexOf("/temp/home/") !== -1){
-            homeTemp = parseInt(req.url.substr(12, req.url.length));
-            //console.log(homeTemp);
+            homeTemp = parseInt(req.url.substr(11, req.url.length));
+            console.log("Home: " + homeTemp.toString());
         }
     }
 
@@ -59,7 +59,6 @@ gpio.setup(12, gpio.DIR_OUT, function () {
 });
 
 setInterval(function(){
-	console.log(waterTemp);
 	if (pin_ready === true) {
 		if(waterTemp === 15) {
 			write_to_pin(12, 1);
