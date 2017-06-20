@@ -45,21 +45,12 @@ $("#home-down").click(function(){
     console.log("Saved!")
 
     setTimeout(update, 1000);
-}
+}*/
 
-$(function(){
-    let homeTemp = localStorage["homeTemp"];
-    let waterTemp = localStorage["waterTemp"];
+$(setInterval(function(){
+    let homeTemp = httpRequest("GET", serverUrl + "/temp/home/");
+    let waterTemp = httpRequest("GET", serverUrl + "/temp/water/");
 
-    if(homeTemp)
-        $("#home-temp").text(homeTemp);
-    else
-        $("#home-temp").text(25);
-
-    if(waterTemp)
-        $("#water-temp").text(waterTemp);
-    else
-        $("water-temp").text(25);
-
-    update();
-});*/
+    $("#home-temp").text(homeTemp);
+    $("#water-temp").text(waterTemp);
+}, 1000));

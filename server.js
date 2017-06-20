@@ -1,5 +1,5 @@
-var http = require('http');
-var gpio = require('rpi-gpio');
+let http = require('http');
+let gpio = require('rpi-gpio');
  
 function write() {
 	gpio.write(12, false, function(err) {
@@ -8,24 +8,31 @@ function write() {
 	});
 }
 
-var server = http.createServer();
+let server = http.createServer();
 
-var waterTemp = -95;
+let waterTemp = 0;
+let homeTemp = 0;
 
 server.on('request', function(req,res) {
-    var msg = "";
+    let msg = "";
 
     if(req.method === "PUT"){
         if(req.url.indexOf("/temp/water/") !== -1){
             waterTemp = parseInt(req.url.substr(12, req.url.length));
             //console.log(waterTemp);
-
+        }
+        if(req.url.indexOf("/temp/home/") !== -1){
+            homeTemp = parseInt(req.url.substr(12, req.url.length));
+            //console.log(homeTemp);
         }
     }
 
     else if(req.method === "GET"){
         if(req.url.indexOf("/temp/water") !== -1){
             msg = waterTemp.toString();
+        }
+        if(req.url.indexOf("/temp/home") !== -1){
+            msg = homeTemp.toString();
         }      
     }
 
@@ -45,7 +52,7 @@ function write_to_pin(pin, val) {
 	});
 }
 
-var pin_ready = false;
+let pin_ready = false;
 gpio.setup(12, gpio.DIR_OUT, function () {
 	write_to_pin(12, false);
 	pin_ready = true;
