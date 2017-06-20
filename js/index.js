@@ -39,7 +39,6 @@ $("#home-down").click(function(){
     $("#home-temp").text(temp);
     httpRequest("PUT", serverUrl + "/temp/home/" + temp);
 });
-});
 
 /*function update(){
     localStorage["homeTemp"] = parseInt($("#home-temp").text());

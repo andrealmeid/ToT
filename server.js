@@ -13,6 +13,10 @@ let server = http.createServer();
 let waterTemp = 15;
 let homeTemp = 15;
 
+let windowFlag = false;
+let boilerFlag = false;
+let coolerFlag = false;
+
 server.on('request', function(req,res) {
     let msg = "";
 
@@ -58,13 +62,32 @@ gpio.setup(12, gpio.DIR_OUT, function () {
 	pin_ready = true;
 });
 
+function getCurWater(){
+    return 20;
+}
+
+function getCurHome(){
+    return 25;
+}
+
 setInterval(function(){
 	if (pin_ready === true) {
-		if(waterTemp === 15) {
+		if(getCurHome() < homeTemp && Math.abs(homeTemp - getCurHome()) >= 1.5){
 			write_to_pin(12, 1);
-		}
-		else {
+            coolerFlag = true;
+        }
+		else{
 			write_to_pin(12, 0);
-		}
-	}
+            coolerFlag = false;
+        }
+
+		/*if(getCurWater() > waterTemp && Math.abs(waterTemp - getCurWater()) >= 1.5){
+			write_to_pin(12, 1);
+            boilerFlag = true;
+        }
+		else{
+			write_to_pin(12, 0);
+            boilerFlag = false;
+        }*/
+    }
 }, 200);
