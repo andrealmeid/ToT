@@ -56,9 +56,9 @@ $(setInterval(function(){
     $("#home-temp").text(homeTemp);
     $("#water-temp").text(waterTemp);
 
-    let coolerFlag = httpRequest("GET", serverUrl + "/temp/cooler");
-    let boilerFlag = httpRequest("GET", serverUrl + "/temp/boiler");
-    let windowFlag = httpRequest("GET", serverUrl + "/temp/window");
+    let coolerFlag = httpRequest("GET", serverUrl + "/flag/cooler");
+    let boilerFlag = httpRequest("GET", serverUrl + "/flag/boiler");
+    let windowFlag = httpRequest("GET", serverUrl + "/flag/window");
 
     if(coolerFlag === 'false'){
         $("#air").attr("fill","#000000");
@@ -80,4 +80,10 @@ $(setInterval(function(){
     else{
         $("#wat").attr("fill","#FFFFFF");
     }
+
+    let homeCurTemp = httpRequest("GET", serverUrl + "/temp/curhome");
+    let waterCurTemp = httpRequest("GET", serverUrl + "/temp/curwater");
+
+    $('#home-cur-temp').text(homeCurTemp);
+    $('#water-cur-temp').text(waterCurTemp);
 }, 500));

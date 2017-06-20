@@ -38,14 +38,20 @@ server.on('request', function(req,res) {
         if(req.url.indexOf("/temp/home") !== -1){
             msg = homeTemp.toString();
         }
-        if(req.url.indexOf('/temp/boiler') !== -1){
+        if(req.url.indexOf('/flag/boiler') !== -1){
             msg = boilerFlag.toString();
         }
-        if(req.url.indexOf('/temp/cooler') !== -1){
+        if(req.url.indexOf('/flag/cooler') !== -1){
             msg = coolerFlag.toString();
         }
-        if(req.url.indexOf('/temp/window') !== -1){
+        if(req.url.indexOf('/flag/window') !== -1){
             msg = windowFlag.toString();
+        }
+        if(req.url.indexOf('/temp/curwater') !== -1){
+            msg = getCurWater().toString();
+        }
+        if(req.url.indexOf('/temp/curhome') !== -1){
+            msg = getCurHome().toString();
         }
     }
 
@@ -81,7 +87,7 @@ function getCurHome(){
 
 setInterval(function(){
     if (pin_ready === true) {
-        if(getCurHome() < homeTemp && Math.abs(homeTemp - getCurHome()) >= 1.5){
+        if(getCurHome() > homeTemp && Math.abs(homeTemp - getCurHome()) >= 1.5){
             write_to_pin(12, 1);
             coolerFlag = true;
         }
@@ -90,13 +96,13 @@ setInterval(function(){
             coolerFlag = false;
         }
 
-        /*if(getCurWater() > waterTemp && Math.abs(waterTemp - getCurWater()) >= 1.5){
-            write_to_pin(12, 1);
+        if(getCurWater() < waterTemp && Math.abs(waterTemp - getCurWater()) >= 1.5){
+            //write_to_pin(12, 1);
             boilerFlag = true;
         }
         else{
-            write_to_pin(12, 0);
+            //write_to_pin(12, 0);
             boilerFlag = false;
-        }*/
+        }
     }
 }, 200);
