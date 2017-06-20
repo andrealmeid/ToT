@@ -55,4 +55,29 @@ $(setInterval(function(){
 
     $("#home-temp").text(homeTemp);
     $("#water-temp").text(waterTemp);
-}, 1000));
+
+    let coolerFlag = httpRequest("GET", serverUrl + "/temp/cooler");
+    let boilerFlag = httpRequest("GET", serverUrl + "/temp/boiler");
+    let windowFlag = httpRequest("GET", serverUrl + "/temp/window");
+
+    if(coolerFlag === 'false'){
+        $("#air").attr("fill","#000000");
+    }
+    else{
+        $("#air").attr("fill","#FFFFFF");
+    }
+
+    if(windowFlag === 'false'){
+        $("#win").attr("fill","#000000");
+    }
+    else{
+        $("#win").attr("fill","#FFFFFF");
+    }
+
+    if(boilerFlag === 'false'){
+        $("#wat").attr("fill","#000000");
+    }
+    else{
+        $("#wat").attr("fill","#FFFFFF");
+    }
+}, 500));
