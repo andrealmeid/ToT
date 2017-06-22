@@ -85,6 +85,7 @@ function getCurHome(){
     return 25;
 }
 
+// NAO QUERO VENTILADOR QUERO AR CONDICIONADO
 setInterval(function(){
     if (pin_ready === true) {
         if(getCurHome() > homeTemp && Math.abs(homeTemp - getCurHome()) >= 1.5){
