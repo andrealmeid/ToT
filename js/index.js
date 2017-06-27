@@ -72,7 +72,7 @@ $("#cons_button").click(function(){
     $("#temp_button").addClass("mdl-color--brown-400");
     $("#temp_button").removeClass("mdl-color--orange-800");
 
-    canvas_chart.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
+    ctx.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
 
     // TODO
 });
@@ -85,7 +85,7 @@ $("#temp_button").click(function(){
     $("#cons_button").addClass("mdl-color--brown-400");
     $("#cons_button").removeClass("mdl-color--orange-800");
 
-    canvas_chart.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
+    ctx.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
 
     // TODO
 });
