@@ -1,4 +1,7 @@
-var temp_chart = new Chart(ctx, {
+var temp_chart;
+var cons_chart;
+
+temp_chart = new Chart(ctx, {
     type: 'line',
     data: {
         datasets: [{
@@ -53,17 +56,34 @@ function removeData(chart) {
     chart.update();
 }
 
-let counter = 0;
 function add_data_to_temp_chart(temp)
 {
     addData(temp_chart, {x: new Date().getTime(), y: temp});
+    temp_history.push({x: new Date().getTime(), y: temp});
     counter++;
     if (counter > 20)
     {
         removeData(temp_chart);
+        temp_history.shift();
+    }
+}
+
+function add_data_to_cons_chart(state)
+{
+    if (state === 'false') state = 0;
+    if (state === 'true') state = 1;
+
+    addData(cons_chart, {x: new Date().getTime(), y: state});
+    cons_history.push({x: new Date().getTime(), y: state});
+    counter++;
+    if (counter > 20)
+    {
+        removeData(cons_chart);
+        cons_history.shift();
     }
 }
 
 setInterval(function () {
     add_data_to_temp_chart(home_cur_temp);
+    add_data_to_cons_chart(home_cur_state);
 }, 1000);

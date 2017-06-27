@@ -3,6 +3,10 @@ const serverUrl = "http://192.168.0.43:3000"
 var canvas_chart = document.getElementById("temp_chart");
 var ctx = canvas_chart.getContext('2d');
 var home_cur_temp;
+var home_cur_state;
+var counter = 0;
+var temp_history = [];
+var cons_history = [];
 
 function httpRequest(method, theUrl)
 {
@@ -72,9 +76,49 @@ $("#cons_button").click(function(){
     $("#temp_button").addClass("mdl-color--brown-400");
     $("#temp_button").removeClass("mdl-color--orange-800");
 
-    ctx.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
+    temp_chart.destroy();
 
-    // TODO
+    cons_chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Estado',
+                data: cons_history,
+                backgroundColor: [
+                    'rgba(50, 59, 225, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(45, 49, 242, 1)',
+                ],
+                borderWidth: 3
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        unit: 'second',
+                        displayFormats: {
+                            second: 'hh:mm:ss'
+                        }
+                    },
+                    ticks: {
+                        autoSkip: true,
+                        autoSkipPadding: 20,
+                        minRotation: 40
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 2
+                    }
+                }]
+            }
+        }
+    });
+
 });
 
 $("#temp_button").click(function(){
@@ -85,9 +129,48 @@ $("#temp_button").click(function(){
     $("#cons_button").addClass("mdl-color--brown-400");
     $("#cons_button").removeClass("mdl-color--orange-800");
 
-    ctx.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
+    cons_chart.destroy();
 
-    // TODO
+    temp_chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Temperature',
+                data: temp_history,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                ],
+                borderWidth: 3
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        unit: 'second',
+                        displayFormats: {
+                            second: 'hh:mm:ss'
+                        }
+                    },
+                    ticks: {
+                        autoSkip: true,
+                        autoSkipPadding: 20,
+                        minRotation: 40
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 15,
+                        max: 50
+                    }
+                }]
+            }
+        }
+    });
 });
 
 /*function update(){
@@ -134,8 +217,9 @@ $(setInterval(function(){
     let homeCurTemp = httpRequest("GET", serverUrl + "/temp/curhome");
     let waterCurTemp = httpRequest("GET", serverUrl + "/temp/curwater");
 
-    // TEST
+    // DIRTY HACK, DON'T CARE
     home_cur_temp = homeCurTemp;
+    home_cur_state = coolerFlag;
 
     $('#home-cur-temp').text(homeCurTemp);
     $('#water-cur-temp').text(waterCurTemp);
