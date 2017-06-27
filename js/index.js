@@ -40,6 +40,19 @@ $("#home-down").click(function(){
     httpRequest("PUT", serverUrl + "/temp/home/" + temp);
 });
 
+$("#chart_button").click(function(e){
+    $("#chart_page").animate({
+        top: "-=600"
+    }, 200, function(){});
+    e.stopPropagation();
+});
+
+$("html").click(function(){
+    $("#chart_page").animate({
+        top: "+=600"
+    }, 200, function(){});
+});
+
 /*function update(){
     localStorage["homeTemp"] = parseInt($("#home-temp").text());
     localStorage["waterTemp"] = parseInt($("#water-temp").text());
