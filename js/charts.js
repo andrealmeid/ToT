@@ -58,7 +58,7 @@ function removeData(chart) {
 
 function add_data_to_temp_chart(temp)
 {
-    addData(temp_chart, {x: new Date().getTime(), y: temp});
+    if (temp_chart) addData(temp_chart, {x: new Date().getTime(), y: temp});
     temp_history.push({x: new Date().getTime(), y: temp});
     counter++;
     if (counter > 20)
@@ -73,7 +73,7 @@ function add_data_to_cons_chart(state)
     if (state === 'false') state = 0;
     if (state === 'true') state = 1;
 
-    addData(cons_chart, {x: new Date().getTime(), y: state});
+    if (cons_chart) addData(cons_chart, {x: new Date().getTime(), y: state});
     cons_history.push({x: new Date().getTime(), y: state});
     counter++;
     if (counter > 20)
