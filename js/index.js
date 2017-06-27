@@ -3,7 +3,7 @@ const serverUrl = "http://192.168.0.43:3000"
 var canvas_chart = document.getElementById("temp_chart");
 var canvas_chart2 = document.getElementById("cons_chart");
 var ctx_temp = canvas_chart.getContext('2d');
-var ctx_cons = canvas_chart.getContext('2d');
+var ctx_cons = canvas_chart2.getContext('2d');
 var home_cur_temp;
 var home_cur_state;
 var counter = 0;
