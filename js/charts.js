@@ -54,3 +54,5 @@ function add_data_to_temp_chart(temp)
 {
     addData(temp_chart, {x: new Date().getTime(), y: temp});
 }
+
+setInterval(function () {add_data_to_temp_chart(home_cur_temp)}, 1000);
