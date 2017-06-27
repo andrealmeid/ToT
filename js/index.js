@@ -10,6 +10,13 @@ var counter = 0;
 var temp_history = [];
 var cons_history = [];
 
+$("#temp_button").attr("disabled", "");
+$("#temp_button").removeClass("mdl-color--brown-400");
+$("#temp_button").addClass("mdl-color--orange-800");
+$("#cons_button").attr("disabled", null);
+$("#cons_button").addClass("mdl-color--brown-400");
+$("#cons_button").removeClass("mdl-color--orange-800");
+
 function httpRequest(method, theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
