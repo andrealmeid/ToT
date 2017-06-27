@@ -45,6 +45,7 @@ $("#chart_page").hide();
 $("#chart_button").click(function(e){
     let height = $("#chart_page").height();
     $("#chart_page").show();
+    $("#chart_buttons").css("left", ($("#chart_page").width() - $("#chart_buttons").width())/2);
     $("#chart_page").animate({
         top: "-="+height
     }, 200, function(){
@@ -59,6 +60,23 @@ $("#chart_button").click(function(e){
     });
 });
 
+$("#cons_button").click(function(){
+    $("#cons_button").attr("disabled", "");
+    $("#cons_button").removeClass("mdl-color--brown-400");
+    $("#cons_button").addClass("mdl-color--orange-800");
+    $("#temp_button").attr("disabled", null);
+    $("#temp_button").addClass("mdl-color--brown-400");
+    $("#temp_button").removeClass("mdl-color--orange-800");
+});
+
+$("#temp_button").click(function(){
+    $("#temp_button").attr("disabled", "");
+    $("#temp_button").removeClass("mdl-color--brown-400");
+    $("#temp_button").addClass("mdl-color--orange-800");
+    $("#cons_button").attr("disabled", null);
+    $("#cons_button").addClass("mdl-color--brown-400");
+    $("#cons_button").removeClass("mdl-color--orange-800");
+});
 
 /*function update(){
     localStorage["homeTemp"] = parseInt($("#home-temp").text());
