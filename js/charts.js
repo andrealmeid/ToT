@@ -1,5 +1,3 @@
-var ctx = document.getElementById("temp_chart").getContext('2d');
-
 var temp_chart = new Chart(ctx, {
     type: 'line',
     data: {

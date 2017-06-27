@@ -1,5 +1,9 @@
 const serverUrl = "http://192.168.0.43:3000"
 
+var canvas_chart = document.getElementById("temp_chart");
+var ctx = canvas_chart.getContext('2d');
+var home_cur_temp;
+
 function httpRequest(method, theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -67,6 +71,10 @@ $("#cons_button").click(function(){
     $("#temp_button").attr("disabled", null);
     $("#temp_button").addClass("mdl-color--brown-400");
     $("#temp_button").removeClass("mdl-color--orange-800");
+
+    canvas_chart.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
+
+    // TODO
 });
 
 $("#temp_button").click(function(){
@@ -76,6 +84,10 @@ $("#temp_button").click(function(){
     $("#cons_button").attr("disabled", null);
     $("#cons_button").addClass("mdl-color--brown-400");
     $("#cons_button").removeClass("mdl-color--orange-800");
+
+    canvas_chart.clearRect(0, 0, canvas_chart.width, canvas_chart.height);
+
+    // TODO
 });
 
 /*function update(){
@@ -86,8 +98,6 @@ $("#temp_button").click(function(){
 
     setTimeout(update, 1000);
 }*/
-
-var home_cur_temp;
 
 $(setInterval(function(){
     let homeTemp = httpRequest("GET", serverUrl + "/temp/home/");
