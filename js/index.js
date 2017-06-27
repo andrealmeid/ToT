@@ -77,6 +77,9 @@ $("#cons_button").click(function(){
     $("#temp_button").attr("disabled", null);
     $("#temp_button").addClass("mdl-color--brown-400");
     $("#temp_button").removeClass("mdl-color--orange-800");
+
+    $("#temp_div").hide();
+    $("#cons_div").show();
 });
 
 $("#temp_button").click(function(){
@@ -86,6 +89,9 @@ $("#temp_button").click(function(){
     $("#cons_button").attr("disabled", null);
     $("#cons_button").addClass("mdl-color--brown-400");
     $("#cons_button").removeClass("mdl-color--orange-800");
+
+    $("#cons_div").hide();
+    $("#temp_div").show();
 });
 
 /*function update(){
