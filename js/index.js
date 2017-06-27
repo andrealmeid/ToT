@@ -9,8 +9,6 @@ var home_cur_state;
 var counter = 0;
 var temp_history = [];
 var cons_history = [];
-$("#cons_chart").hide();
-$("#temp_chart").show();
 
 function httpRequest(method, theUrl)
 {
@@ -79,9 +77,6 @@ $("#cons_button").click(function(){
     $("#temp_button").attr("disabled", null);
     $("#temp_button").addClass("mdl-color--brown-400");
     $("#temp_button").removeClass("mdl-color--orange-800");
-
-    $("#temp_chart").hide();
-    $("#cons_chart").show();
 });
 
 $("#temp_button").click(function(){
@@ -91,9 +86,6 @@ $("#temp_button").click(function(){
     $("#cons_button").attr("disabled", null);
     $("#cons_button").addClass("mdl-color--brown-400");
     $("#cons_button").removeClass("mdl-color--orange-800");
-
-    $("#temp_chart").show();
-    $("#cons_chart").hide();
 });
 
 /*function update(){
