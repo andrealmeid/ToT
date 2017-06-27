@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome to nginx!</title>
+        <style>
+            body {
+                width: 35em;
+                margin: 0 auto;
+                font-family: Tahoma, Verdana, Arial, sans-serif;
+            }
+        </style>
+        <script defer src="include/material.min.js"></script>
+        <script src="include/jquery.min.js"></script>
+        <script src="moment.js"></script>
+        <script src="Chart.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/charts.js"></script>
+    </head>
+    <body>
+        <canvas id="temp_chart"></canvas>
+
+        <script>
+
+        function add_data_to_temp_chart(temp)
+        {
+            addData(temp_chart, {x: new Date().getTime(), y);
+        }
+
+        function addData(chart, data) {
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data);
+            });
+            chart.update();
+        }
+
+        function removeData(chart) {
+            chart.data.labels.pop();
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.pop();
+            });
+            chart.update();
+        }
+
+        var data = {
+            datasets: [{
+                label: 'Temperature',
+                data: [],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                ],
+                borderWidth: 3
+            }]
+        };
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+
+        var temp_chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            unit: 'second',
+                            displayFormats: {
+                                second: 'hh:mm:ss'
+                            }
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            autoSkipPadding: 20,
+                            minRotation: 40
+                        }
+                    }]
+                }
+            }
+        });
+
+        </script>
+    </body>
+</html>
