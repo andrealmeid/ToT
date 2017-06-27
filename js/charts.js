@@ -30,6 +30,12 @@ var temp_chart = new Chart(ctx, {
                     autoSkipPadding: 20,
                     minRotation: 40
                 }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 15,
+                    max: 50
+                }
             }]
         }
     }
