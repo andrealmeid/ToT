@@ -69,7 +69,7 @@ $("#chart_button").click(function(e){
     setTimeout(update, 1000);
 }*/
 
-let home_cur_temp;
+var home_cur_temp;
 
 $(setInterval(function(){
     let homeTemp = httpRequest("GET", serverUrl + "/temp/home/");
