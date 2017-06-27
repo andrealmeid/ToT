@@ -1,4 +1,3 @@
-
 var temp_chart = new Chart(ctx_temp, {
     type: 'line',
     data: {

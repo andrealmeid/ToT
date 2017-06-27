@@ -10,6 +10,7 @@ var counter = 0;
 var temp_history = [];
 var cons_history = [];
 $("#cons_chart").hide();
+$("#temp_chart").show();
 
 function httpRequest(method, theUrl)
 {
