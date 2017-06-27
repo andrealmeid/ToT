@@ -1,7 +1,9 @@
 const serverUrl = "http://192.168.0.43:3000"
 
 var canvas_chart = document.getElementById("temp_chart");
-var ctx = canvas_chart.getContext('2d');
+var canvas_chart2 = document.getElementById("cons_chart");
+var ctx_temp = canvas_chart.getContext('2d');
+var ctx_cons = canvas_chart.getContext('2d');
 var home_cur_temp;
 var home_cur_state;
 var counter = 0;
@@ -76,49 +78,8 @@ $("#cons_button").click(function(){
     $("#temp_button").addClass("mdl-color--brown-400");
     $("#temp_button").removeClass("mdl-color--orange-800");
 
-    temp_chart.destroy();
-
-    cons_chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Estado',
-                data: cons_history,
-                backgroundColor: [
-                    'rgba(50, 59, 225, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(45, 49, 242, 1)',
-                ],
-                borderWidth: 3
-            }]
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        unit: 'second',
-                        displayFormats: {
-                            second: 'hh:mm:ss'
-                        }
-                    },
-                    ticks: {
-                        autoSkip: true,
-                        autoSkipPadding: 20,
-                        minRotation: 40
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: 2
-                    }
-                }]
-            }
-        }
-    });
-
+    $("#temp_chart").hide();
+    $("#cons_chart").show();
 });
 
 $("#temp_button").click(function(){
@@ -129,48 +90,8 @@ $("#temp_button").click(function(){
     $("#cons_button").addClass("mdl-color--brown-400");
     $("#cons_button").removeClass("mdl-color--orange-800");
 
-    cons_chart.destroy();
-
-    temp_chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Temperature',
-                data: temp_history,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                ],
-                borderWidth: 3
-            }]
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        unit: 'second',
-                        displayFormats: {
-                            second: 'hh:mm:ss'
-                        }
-                    },
-                    ticks: {
-                        autoSkip: true,
-                        autoSkipPadding: 20,
-                        minRotation: 40
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 15,
-                        max: 50
-                    }
-                }]
-            }
-        }
-    });
+    $("#temp_chart").hide();
+    $("#cons_chart").show();
 });
 
 /*function update(){
