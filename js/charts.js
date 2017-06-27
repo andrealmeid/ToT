@@ -43,15 +43,23 @@ function addData(chart, data) {
 }
 
 function removeData(chart) {
-    chart.data.labels.pop();
     chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
+        dataset.data.shift();
     });
     chart.update();
 }
 
+let counter = 0;
 function add_data_to_temp_chart(temp)
 {
-    addData(temp_chart, {x: new Date().getTime(), y);
+    addData(temp_chart, {x: new Date().getTime(), y: temp});
+    counter++;
+    if (counter > 20)
+    {
+        removeData(temp_chart);
+    }
 }
 
+setInterval(function () {
+    add_data_to_temp_chart(home_cur_temp);
+}, 1000);

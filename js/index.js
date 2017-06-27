@@ -87,6 +87,8 @@ $("#temp_button").click(function(){
     setTimeout(update, 1000);
 }*/
 
+var home_cur_temp;
+
 $(setInterval(function(){
     let homeTemp = httpRequest("GET", serverUrl + "/temp/home/");
     let waterTemp = httpRequest("GET", serverUrl + "/temp/water/");
@@ -121,6 +123,9 @@ $(setInterval(function(){
 
     let homeCurTemp = httpRequest("GET", serverUrl + "/temp/curhome");
     let waterCurTemp = httpRequest("GET", serverUrl + "/temp/curwater");
+
+    // TEST
+    home_cur_temp = homeCurTemp;
 
     $('#home-cur-temp').text(homeCurTemp);
     $('#water-cur-temp').text(waterCurTemp);
