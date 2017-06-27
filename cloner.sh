@@ -1,12 +1,14 @@
 output="Already up-to-date."
 
+node server.js &
 while [ true ]
 do
     t=$(git pull)
-    if [ t != output ]
+    if [ "$t" != "$output" ]
     then
         killall node
-        node server.js
+        node server.js &
+	systemctl restart nginx
     fi
 
     sleep 10
