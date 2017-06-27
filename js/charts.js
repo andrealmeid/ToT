@@ -54,4 +54,3 @@ function add_data_to_temp_chart(temp)
 {
     addData(temp_chart, {x: new Date().getTime(), y: temp});
 }
-
