@@ -107,3 +107,4 @@ $(setInterval(function(){
     $('#home-cur-temp').text(homeCurTemp);
     $('#water-cur-temp').text(waterCurTemp);
 }, 500));
+
