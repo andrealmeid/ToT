@@ -3,7 +3,7 @@ output="Already up-to-date."
 while [ true ]
 do
     t=$(git pull)
-    if [ t == output ]
+    if [ t != output ]
     then
         killall node
         node server.js

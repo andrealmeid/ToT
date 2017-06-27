@@ -1,5 +1,7 @@
 let http = require('http');
 let gpio = require('rpi-gpio');
+let serialport = require('serialport');
+let serial = new serialport('/dev/ttyACM0', {parser: serialport.parsers.readline('!')});
 
 function write() {
     gpio.write(12, false, function(err) {
@@ -10,33 +12,40 @@ function write() {
 
 let server = http.createServer();
 
-let waterTemp = 15;
-let homeTemp = 15;
+let targetWaterTemp = 15;
+let targetHomeTemp = 15;
+
+let currentWaterTemp = 60;
+let currentHomeTemp = 0;
 
 let windowFlag = false;
 let boilerFlag = false;
 let coolerFlag = false;
+
+serial.on('data', function (data) {
+	currentHomeTemp = parseFloat('' + data);
+});
 
 server.on('request', function(req,res) {
     let msg = "";
 
     if(req.method === "PUT"){
         if(req.url.indexOf("/temp/water/") !== -1){
-            waterTemp = parseInt(req.url.substr(12, req.url.length));
-            console.log("Water: " + waterTemp.toString());
+            targetWaterTemp = parseInt(req.url.substr(12, req.url.length));
+            console.log("Water: " + targetWaterTemp.toString());
         }
         if(req.url.indexOf("/temp/home/") !== -1){
-            homeTemp = parseInt(req.url.substr(11, req.url.length));
-            console.log("Home: " + homeTemp.toString());
+            targetHomeTemp = parseInt(req.url.substr(11, req.url.length));
+            console.log("Home: " + targetHomeTemp.toString());
         }
     }
 
     else if(req.method === "GET"){
         if(req.url.indexOf("/temp/water") !== -1){
-            msg = waterTemp.toString();
+            msg = targetWaterTemp.toString();
         }
         if(req.url.indexOf("/temp/home") !== -1){
-            msg = homeTemp.toString();
+            msg = targetHomeTemp.toString();
         }
         if(req.url.indexOf('/flag/boiler') !== -1){
             msg = boilerFlag.toString();
@@ -48,10 +57,10 @@ server.on('request', function(req,res) {
             msg = windowFlag.toString();
         }
         if(req.url.indexOf('/temp/curwater') !== -1){
-            msg = getCurWater().toString();
+            msg = currentWaterTemp.toString();
         }
         if(req.url.indexOf('/temp/curhome') !== -1){
-            msg = getCurHome().toString();
+            msg = currentHomeTemp.toString();
         }
     }
 
@@ -77,31 +86,22 @@ gpio.setup(12, gpio.DIR_OUT, function () {
     pin_ready = true;
 });
 
-function getCurWater(){
-    return 20;
-}
-
-function getCurHome(){
-    return 25;
-}
-
-// NAO QUERO VENTILADOR QUERO AR CONDICIONADO
 setInterval(function(){
     if (pin_ready === true) {
-        if(getCurHome() > homeTemp && Math.abs(homeTemp - getCurHome()) >= 1.5){
+        if(currentHomeTemp > targetHomeTemp && Math.abs(targetHomeTemp - currentHomeTemp) >= 2){
             write_to_pin(12, 1);
             coolerFlag = true;
         }
-        else{
+        else if(Math.abs(targetHomeTemp - currentHomeTemp) <= 1){
             write_to_pin(12, 0);
             coolerFlag = false;
         }
 
-        if(getCurWater() < waterTemp && Math.abs(waterTemp - getCurWater()) >= 1.5){
+        if(currentWaterTemp < targetWaterTemp && Math.abs(targetWaterTemp - currentWaterTemp) >= 2){
             //write_to_pin(12, 1);
             boilerFlag = true;
         }
-        else{
+        else if(Math.abs(targetWaterTemp - currentWaterTemp) <= 1){
             //write_to_pin(12, 0);
             boilerFlag = false;
         }
