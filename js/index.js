@@ -43,16 +43,17 @@ $("#home-down").click(function(){
 $("#chart_page").hide();
 
 $("#chart_button").click(function(e){
+    let height = $("#chart_page").height();
     $("#chart_page").show();
     $("#chart_page").animate({
-        top: "-=500"
+        top: "-="+height
     }, 200, function(){
-        $("html").click(function(){
+        $("#out").click(function(){
             $("#chart_page").animate({
-                top: "+=500"
+                top: "+="+height
             }, 200, function(){
                 $("#chart_page").hide();
-                $("html").off("click");
+                $("#out").off("click");
             });
         });
     });
