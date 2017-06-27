@@ -42,14 +42,14 @@ $("#home-down").click(function(){
 
 $("#chart_button").click(function(e){
     $("#chart_page").animate({
-        top: "-=600"
+        top: "-=400"
     }, 200, function(){});
     e.stopPropagation();
 });
 
 $("html").click(function(){
     $("#chart_page").animate({
-        top: "+=600"
+        top: "+=400"
     }, 200, function(){});
 });
 
