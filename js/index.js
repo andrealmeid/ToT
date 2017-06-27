@@ -40,6 +40,25 @@ $("#home-down").click(function(){
     httpRequest("PUT", serverUrl + "/temp/home/" + temp);
 });
 
+$("#chart_page").hide();
+
+$("#chart_button").click(function(e){
+    $("#chart_page").show();
+    $("#chart_page").animate({
+        top: "-=500"
+    }, 200, function(){
+        $("html").click(function(){
+            $("#chart_page").animate({
+                top: "+=500"
+            }, 200, function(){
+                $("#chart_page").hide();
+                $("html").off("click");
+            });
+        });
+    });
+});
+
+
 /*function update(){
     localStorage["homeTemp"] = parseInt($("#home-temp").text());
     localStorage["waterTemp"] = parseInt($("#water-temp").text());
